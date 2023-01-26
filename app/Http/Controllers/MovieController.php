@@ -40,7 +40,20 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        //
+        $movie = Movie::create([
+            'title'=> $request->title,
+            'description' => $request->description,
+            'url' => $request->url,
+            'genre' => $request->genre,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Movie created successfully',
+            'movie' => $movie,
+        ]);
+
     }
 
     /**
