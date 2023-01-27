@@ -15,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movie = Movie::with('user')->get();
+        $movie = Movie::with('user')->paginate(10);
         return response()->json([
             'status' => 'success',
             'movie' => $movie,
@@ -40,7 +40,20 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        //
+        $movie = Movie::create([
+            'title'=> $request->title,
+            'description' => $request->description,
+            'url' => $request->url,
+            'genre' => $request->genre,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Movie created successfully',
+            'movie' => $movie,
+        ]);
+
     }
 
     /**
