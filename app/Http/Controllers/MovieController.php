@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Movie;
+use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
@@ -13,9 +14,29 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $movie = Movie::with('user')->paginate(10);
+    public function index(Request $request)
+    {  
+        $searchBy = '';
+        $searchQuerey ='';
+        if ($request->has('title')){
+            $searchQuerey = $request->query('title'); 
+            $searchBy = 'title';
+        } else if ($request->has('description')){
+            $searchQuerey = $request->query('description');
+            $searchBy ='description';
+        }else if($request->has('url')){
+            $searchQuerey = $request->query('url');
+            $searchBy = 'url';
+        }else if($request->has('genre')){
+            $searchQuerey = $request->query('genre');
+            $searchBy = 'genre';
+        }
+        if($searchBy && $searchQuerey) {
+            $movie =  Movie::where([[$searchBy,"like","%".$searchQuerey."%"]])->paginate(10);
+        } else {
+            $movie = Movie::with('user')->paginate(10);
+        }
+
         return response()->json([
             'status' => 'success',
             'movie' => $movie,
@@ -27,9 +48,16 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(StoreMovieRequest $request)
     {
-        //
+        $movie = Movie::create([
+            'title'=> $request->title,
+            'description' => $request->description,
+            'url' => $request->url,
+            'genre' => $request->genre,
+            'user_id' => $request->user_id,
+        ]);
+
     }
 
     /**
@@ -40,14 +68,7 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        $movie = Movie::create([
-            'title'=> $request->title,
-            'description' => $request->description,
-            'url' => $request->url,
-            'genre' => $request->genre,
-            'user_id' => $request->user_id,
-        ]);
-
+       
         return response()->json([
             'status' => 'success',
             'message' => 'Movie created successfully',
@@ -62,9 +83,23 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function show(Movie $movie)
+    public function show(Movie $movie, $id)
     {
-        //
+        $movie = Movie::with('user')->where('id', $id)->first();
+        return response()->json([
+            'status' => 'success',
+            'movie' => $movie,
+        ]);
+    }
+    public function search(Movie $movie, $name){
+        $movie = Movie::where([["title","like","%".$name."%"]],
+        [["description","like","%".$name."%"]],
+        [["url","like","%".$name."%"]],)->get();
+       
+        return response()->json([
+            'status' => 'success',
+            'movie' => $movie,
+        ]);
     }
 
     /**
