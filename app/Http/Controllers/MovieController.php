@@ -15,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movie = Movie::with('user')->get();
+        $movie = Movie::with('user')->paginate(10);
         return response()->json([
             'status' => 'success',
             'movie' => $movie,
