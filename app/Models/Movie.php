@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Like;
+use App\Models\Movie;
 
 class Movie extends Model
 {
@@ -22,5 +24,9 @@ class Movie extends Model
 
         return $this->belongsTo(User::class, 'user_id');
 
+    }
+    public function like()
+    {
+        return $this->hasMany(Like::class);
     }
 }

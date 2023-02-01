@@ -39,7 +39,7 @@ class MovieController extends Controller
         }else if($searchByGenre && $searchQuereyGenre){
             $movie =  Movie::where([[$searchByGenre,"like","%".$searchQuereyGenre."%"]])->paginate(10);     
         }else {
-            $movie = Movie::with('user')->paginate(10);
+            $movie = Movie::with('like')->paginate(10);
         }
 
         return response()->json([
