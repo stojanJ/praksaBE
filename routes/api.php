@@ -30,4 +30,5 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(MovieController::class)->group(function () {
     Route::get('movies', 'index');
+    Route::post('movies', 'store');
 });
