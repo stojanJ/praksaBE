@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMovieRequest extends FormRequest
+class UpdateLikeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreMovieRequest extends FormRequest
      */
     public function authorize()
     {
-        return !!$this->user();      
+        return false;
     }
 
     /**
@@ -24,11 +24,7 @@ class StoreMovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255|min:2',
-            'description' => 'required|string|max:1000',
-            'url' => 'required|string|url',
-            'genre' => 'required',
-            'user_id' => 'required',
+            //
         ];
     }
 }

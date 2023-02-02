@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Movie;
+use App\Models\Like;
 
-class MovieSeeder extends Seeder
+class LikeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class MovieSeeder extends Seeder
      */
     public function run()
     {
-        Movie::factory()->count(20)->hasLikes(20)->create();
+        Like::factory(20)->create();
     }
 }
