@@ -36,7 +36,18 @@ class LikeController extends Controller
      */
     public function store(StoreLikeRequest $request)
     {
-        //
+        $like = Like::create([
+            'movie_id'=> $request->movie_id,
+            'user_id' => $request->user_id,
+            'like' => $request->like,
+            'dislike' => $request->dislike,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'like/dislike created successfully',
+            'movie' => $like,
+        ]);
     }
 
     /**

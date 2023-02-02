@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use App\Models\Movie;
+use App\Models\Like;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -66,6 +67,10 @@ class User extends Authenticatable implements JWTSubject
     public function movie()
     {
         return $this->hasMany(Movie::class);
+    }
+    public function like()
+    {
+        return $this->hasMany(Like::class);
     }
 
 }
