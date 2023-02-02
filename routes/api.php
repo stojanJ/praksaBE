@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\LikeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +34,8 @@ Route::controller(MovieController::class)->group(function () {
     Route::get('movies', 'index');
     Route::post('movies', 'store');
     Route::get('movies/{id}', 'show');
+});
+
+Route::controller(LikeController::class)->group(function () {
+    Route::post('like', 'store');
 });
