@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Like;
 use App\Models\Movie;
+use App\Models\View;
+
 
 class Movie extends Model
 {
@@ -16,7 +18,7 @@ class Movie extends Model
         'description',
         'url',
         'genre',
-        'user_id'
+        'user_id',
     ];
     public function user()
     {
@@ -27,5 +29,9 @@ class Movie extends Model
     public function like()
     {
         return $this->hasMany(Like::class);
+    }
+    public function view()
+    {
+        return $this->hasMany(View::class);
     }
 }

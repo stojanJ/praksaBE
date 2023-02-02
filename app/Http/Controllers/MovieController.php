@@ -34,11 +34,11 @@ class MovieController extends Controller
             $searchByGenre = 'genre';
         }
         if($searchBy && $searchQuerey) {
-            $movie =  Movie::with('like')->where([[$searchBy,"like","%".$searchQuerey."%"]])->paginate(10);
+            $movie =  Movie::with('like')->with('view')->where([[$searchBy,"like","%".$searchQuerey."%"]])->paginate(10);
         }else if($searchByGenre && $searchQuereyGenre){
-            $movie =  Movie::with('like')->where([[$searchByGenre,"like","%".$searchQuereyGenre."%"]])->paginate(10);     
+            $movie =  Movie::with('like')->with('view')->where([[$searchByGenre,"like","%".$searchQuereyGenre."%"]])->paginate(10);     
         }else {
-            $movie = Movie::with('like')->paginate(10);
+            $movie = Movie::with('like')->with('view')->paginate(10);
         }
 
         return response()->json([
@@ -89,7 +89,7 @@ class MovieController extends Controller
      */
     public function show(Movie $movie, $id)
     {
-        $movie = Movie::with('like')->where('id', $id)->first();
+        $movie = Movie::with('like')->with('view')->where('id', $id)->first();
         return response()->json([
             'status' => 'success',
             'movie' => $movie,

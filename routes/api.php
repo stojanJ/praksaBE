@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\LikeController;
-
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +38,8 @@ Route::controller(MovieController::class)->group(function () {
 
 Route::controller(LikeController::class)->group(function () {
     Route::post('like', 'store');
+});
+
+Route::controller(ViewController::class)->group(function () {
+    Route::post('view', 'store');
 });
