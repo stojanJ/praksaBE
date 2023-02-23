@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ViewController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,8 @@ Route::controller(LikeController::class)->group(function () {
 
 Route::controller(ViewController::class)->group(function () {
     Route::post('view', 'store');
+});
+Route::controller(CommentController::class)->group(function () {
+    Route::get('comment', 'index');
+    Route::post('comment', 'store');
 });

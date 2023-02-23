@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Like;
 use App\Models\Movie;
 use App\Models\View;
+use App\Models\Comment;
 
 
 class Movie extends Model
@@ -33,5 +34,9 @@ class Movie extends Model
     public function view()
     {
         return $this->hasMany(View::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use App\Models\Movie;
 use App\Models\Like;
+use App\Models\Comment;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -71,6 +72,10 @@ class User extends Authenticatable implements JWTSubject
     public function like()
     {
         return $this->hasMany(Like::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }
